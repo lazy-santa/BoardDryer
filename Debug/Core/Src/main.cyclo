@@ -1,0 +1,15 @@
+main.c:104:6:LED_RGB_Set	1
+main.c:111:6:BuzzerSet	1
+main.c:119:6:Message_Alarm	1
+main.c:134:6:CheckDoor	6
+main.c:156:6:CHECK_SYSTEM	7
+main.c:228:9:ChooseTargetMode	2
+main.c:248:9:ChooseTargetTemp	6
+main.c:278:9:ChooseTargetTime	6
+main.c:313:6:Heating	3
+main.c:333:6:RunTimerMode	6
+main.c:379:6:RunNoTimerMode	6
+main.c:422:6:FinishWork	5
+main.c:456:5:main	2
+main.c:576:6:SystemClock_Config	3
+main.c:619:6:Error_Handler	1
