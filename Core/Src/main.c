@@ -535,7 +535,7 @@ int main(void)
 	  				((uint8_t) (Count_Timer / 60) / 60),
 	  				((uint8_t) (Count_Timer / 60) % 60));
 	  		lcd1602_Print_text(lcd1602_tx_buffer);
-	  /*ButtonDoor_State = HAL_GPIO_ReadPin(BUTTON_DOOR_GPIO_Port, BUTTON_DOOR_Pin);
+	  ButtonDoor_State = HAL_GPIO_ReadPin(BUTTON_DOOR_GPIO_Port, BUTTON_DOOR_Pin);
 		TargetMode = ChooseTargetMode();
 
 		switch (TargetMode) {
@@ -563,7 +563,7 @@ int main(void)
 				BuzzerSet(1000, 100);
 				CHECK_SYSTEM();
 				break;
-		}*/
+		}
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
