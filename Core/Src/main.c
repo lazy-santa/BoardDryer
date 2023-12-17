@@ -426,10 +426,10 @@ void FinishWork(){
 	lcd1602_SetCursor(0, 0);
 	sprintf(lcd1602_tx_buffer, "Work is finished");
 	lcd1602_Print_text(lcd1602_tx_buffer);
-
+	
 	LED_RGB_Set(0, 255, 0);
 	ButtonEncoder_State = 0;
-
+	
 	State_Cool = 1;
 	for(int i = 0; i < 3; i++){
 		Count_Timer = 30000;
@@ -437,7 +437,7 @@ void FinishWork(){
 		while (Count_Timer > 0){
 			bmp280_read_float(&bmp280, &temperature, &pressure, NULL);
 			TIM3->CCR1 = 50000 * (temperature/TargetTemp);
-
+	
 			if (ButtonEncoder_State) break;
 		}
 		if (ButtonEncoder_State) break;
@@ -523,47 +523,47 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-	  bmp280_read_float(&bmp280, &temperature, &pressure, NULL);
+  	bmp280_read_float(&bmp280, &temperature, &pressure, NULL);
 
-	  		lcd1602_SetCursor(0, 0);
-	  		sprintf(lcd1602_tx_buffer, "Temperature: %d ",
-	  				(uint8_t) temperature);
-	  		lcd1602_Print_text(lcd1602_tx_buffer);
+	lcd1602_SetCursor(0, 0);
+	sprintf(lcd1602_tx_buffer, "Temperature: %d ",
+			(uint8_t) temperature);
+	lcd1602_Print_text(lcd1602_tx_buffer);
 
-	  		lcd1602_SetCursor(0, 1);
-	  		sprintf(lcd1602_tx_buffer, "Time: %dH. %dm. ",
-	  				((uint8_t) (Count_Timer / 60) / 60),
-	  				((uint8_t) (Count_Timer / 60) % 60));
-	  		lcd1602_Print_text(lcd1602_tx_buffer);
-	  ButtonDoor_State = HAL_GPIO_ReadPin(BUTTON_DOOR_GPIO_Port, BUTTON_DOOR_Pin);
-		TargetMode = ChooseTargetMode();
+	lcd1602_SetCursor(0, 1);
+	sprintf(lcd1602_tx_buffer, "Time: %dH. %dm. ",
+			((uint8_t) (Count_Timer / 60) / 60),
+			((uint8_t) (Count_Timer / 60) % 60));
+	lcd1602_Print_text(lcd1602_tx_buffer);
+  	ButtonDoor_State = HAL_GPIO_ReadPin(BUTTON_DOOR_GPIO_Port, BUTTON_DOOR_Pin);
+	TargetMode = ChooseTargetMode();
 
-		switch (TargetMode) {
-			case TimerMode:
-				TargetTime = ChooseTargetTime();
-				TargetTemp = ChooseTargetTemp();
-				CheckDoor();
-				RunTimerMode(TargetTemp, TargetTime);
-				if(Alarm_Flag)
-					break;
-				FinishWork();
-				break;
+	switch (TargetMode) {
+	case TimerMode:
+		TargetTime = ChooseTargetTime();
+		TargetTemp = ChooseTargetTemp();
+		CheckDoor();
+		RunTimerMode(TargetTemp, TargetTime);
+		if(Alarm_Flag)
+		break;
+		FinishWork();
+		break;
 
-			case NoTimerMode:
-				TargetTemp = ChooseTargetTemp();
-				CheckDoor();
-				RunNoTimerMode(TargetTemp);
-				if(Alarm_Flag)
-					break;
-				FinishWork();
-				break;
+	case NoTimerMode:
+		TargetTemp = ChooseTargetTemp();
+		CheckDoor();
+		RunNoTimerMode(TargetTemp);
+		if(Alarm_Flag)
+		break;
+		FinishWork();
+		break;
 
-			case DebugMode:
-				LED_RGB_Set(0, 0, 255);
-				BuzzerSet(1000, 100);
-				CHECK_SYSTEM();
-				break;
-		}
+	case DebugMode:
+		LED_RGB_Set(0, 0, 255);
+		BuzzerSet(1000, 100);
+		CHECK_SYSTEM();
+		break;
+	}
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
